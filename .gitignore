@@ -4,6 +4,9 @@
 # Packaging
 .cask
 
+# Ignore Packages
+elpa/
+
 # Autosaves
 auto-save-list/
 .emacs.desktop
