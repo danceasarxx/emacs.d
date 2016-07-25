@@ -6,3 +6,5 @@
 
 # Autosaves
 auto-save-list/
+.emacs.desktop
+.emacs.desktop.lock
