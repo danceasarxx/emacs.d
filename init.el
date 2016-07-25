@@ -43,6 +43,10 @@
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 (add-hook 'window-setup-hook 'on-after-init)
 
+;; IBuffer
+(use-package ibuffer
+  :bind (("C-x C-b" . ibuffer-other-window)))
+
 ;; smex
 (use-package smex
   :ensure t
@@ -111,3 +115,11 @@
   :ensure t
   :config (ido-ubiquitous-mode t))
 
+(use-package neotree
+  :ensure t
+  :bind (([f8] . neotree-toggle))
+  :config
+  (progn
+    (setq neo-smart-open t)
+    (setq projectile-switch-project-action 'neotree-projectile-action)
+    (setq neo-window-width 40)))

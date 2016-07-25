@@ -20,3 +20,6 @@ projectile-bookmarks.eld
 
 # Smex
 smex-items
+
+# IDO
+ido.*
