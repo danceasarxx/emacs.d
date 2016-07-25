@@ -9,5 +9,14 @@ elpa/
 
 # Autosaves
 auto-save-list/
+\.#*
+\#*\#
 .emacs.desktop
 .emacs.desktop.lock
+
+
+# Projectile
+projectile-bookmarks.eld
+
+# Smex
+smex-items
