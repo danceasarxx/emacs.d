@@ -33,6 +33,10 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
+;; I don't like typing
+(ido-mode t)
+(ido-everywhere t)
+
 ;; Use pure background
 (defun on-after-init ()
   (unless (display-graphic-p (selected-frame))
@@ -103,6 +107,7 @@
   :defer t
   :init (add-hook 'after-init-hook 'global-git-gutter-mode))
 
-(use-package ido-ubiquitous'
-  :ensure t)
+(use-package ido-ubiquitous
+  :ensure t
+  :config (ido-ubiquitous-mode t))
 
