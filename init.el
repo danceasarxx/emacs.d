@@ -191,10 +191,9 @@
   :ensure t
   :defer t)
 
-(use-package pyenv-mode
-  :ensure t
-  :defer t
-  :config (pyenv-mode))
+;; (use-package pyenv-mode
+;;   :ensure t
+;;   :defer t)
 
 (use-package pyenv-mode-auto
   :ensure t
