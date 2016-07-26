@@ -77,17 +77,17 @@
   :config (projectile-global-mode))
 
 ;; Smart parens
-(use-package smartparens
-  :ensure t
-  :diminish smartparens-mode
-  :config
-  (progn
-    (require 'smartparens-config)
-    (smartparens-global-mode t)))
+;; (use-package smartparens
+;;   :ensure t
+;;   :diminish smartparens-mode
+;;   :config
+;;   (progn
+;;     (require 'smartparens-config)
+;;     (smartparens-global-mode t)))
 
 (use-package company
-  :ensure t
-  :defer t
+  :ensure t  
+  :bind ("<C-tab>" . company-complete)
   :init (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package expand-region
@@ -123,3 +123,84 @@
     (setq neo-smart-open t)
     (setq projectile-switch-project-action 'neotree-projectile-action)
     (setq neo-window-width 40)))
+
+(use-package json-mode
+  :ensure t
+  :defer t
+  :config
+  (progn
+    (bind-key "{" #'paredit-open-curly json-mode-map)
+    (bind-key "}" #'paredit-close-curly json-mode-map)))
+
+(use-package json-reformat
+  :ensure t
+  :defer t)
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status)
+  :config
+  (progn
+    (setenv "GIT_PAGER" "")
+    (setq magit-completing-read-function 'magit-ido-completing-read)))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C->" . mc/mark-next-like-this)))
+
+(use-package org
+  :ensure t
+  :defer t
+  :init
+  (setq org-replace-disputed-keys t
+        org-default-notes-file (expand-file-name "Notes/journal.org" (getenv "HOME")))
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((awk . t)
+     (emacs-lisp . t)
+     (python . t)
+     (sh . t))))
+
+(use-package paredit
+  :diminish paredit-mode
+  :ensure t
+  :init
+  (progn
+    (add-hook 'json-mode-hook 'enable-paredit-mode)
+    (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+    (add-hook 'emacs-lisp-mode 'enable-paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)))
+
+(use-package paredit-everywhere
+  :ensure t
+  :init (add-hook 'prog-mode-hook 'paredit-everywhere-mode))
+
+(use-package pip-requirements
+  :ensure t
+  :defer t)
+
+(use-package rainbow-mode
+  :ensure t
+  :defer t)
+
+(use-package rainbow-delimiters
+  :ensure t
+  :defer t
+  :init (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package regex-tool
+  :ensure t
+  :defer t)
+
+(use-package whitespace-cleanup-mode
+  :ensure t
+  :config (global-whitespace-cleanup-mode))
