@@ -3,6 +3,9 @@
 	     '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+;; Start benchmarking....
+(benchmark-init/activate)
+
 ;; define function to shutdown emacs server instance
 (defun arewa-server-shutdown ()
   "Save buffers, Quit, and Shutdown (kill) server"
@@ -185,6 +188,15 @@
   :init (add-hook 'prog-mode-hook 'paredit-everywhere-mode))
 
 (use-package pip-requirements
+  :ensure t
+  :defer t)
+
+(use-package pyenv-mode
+  :ensure t
+  :defer t
+  :config (pyenv-mode))
+
+(use-package pyenv-mode-auto
   :ensure t
   :defer t)
 
