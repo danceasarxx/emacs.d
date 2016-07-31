@@ -157,7 +157,7 @@
 
 (use-package multiple-cursors
   :ensure t
-  :bind (("C->" . mc/mark-next-like-this)))
+  :bind (("C-c ." . mc/mark-next-like-this)))
 
 (use-package org
   :ensure t
@@ -215,3 +215,7 @@
 (use-package whitespace-cleanup-mode
   :ensure t
   :config (global-whitespace-cleanup-mode))
+
+(use-package xclip
+  :ensure t
+  :config (xclip-mode t))

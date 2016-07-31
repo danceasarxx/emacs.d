@@ -30,3 +30,4 @@ rainbow
 regex-tool
 whitespace-cleanup
 use-package
+wrap-region

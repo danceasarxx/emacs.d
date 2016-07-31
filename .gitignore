@@ -14,12 +14,17 @@ auto-save-list/
 .emacs.desktop
 .emacs.desktop.lock
 
+# Eshell
+eshell/
 
 # Projectile
 projectile-bookmarks.eld
 
 # Smex
 smex-items
+
+# Multiple Cursosr
+.mc-lists.el
 
 # IDO
 ido.*
