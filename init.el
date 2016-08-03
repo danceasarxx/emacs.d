@@ -27,7 +27,9 @@
 (setq-default indent-tabs-mode nil)
 
 ;; Save sessions like sublime
-(desktop-save-mode 1)
+(setq desktop-path '("./" "~/.emacs.d/"))
+(desktop-save-mode t)
+(desktop-auto-save-enable t)
 
 ;; Useless menubar
 (menu-bar-mode -1)
@@ -57,21 +59,18 @@
   :config (smex-initialize))
 
 ;; aggressive indent
-(use-package aggressive-indent
-  :config (global-aggressive-indent-mode t))
+; (use-package aggressive-indent
+;   :ensure t
+;   :defer t)
 
 ;; elpy
 (use-package elpy
   :ensure t
   :init (add-hook 'python-mode-hook #'elpy-enable)
   :config
-  (use-package flycheck
-    :ensure t
-    :config
-    (progn
-      (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-      (add-hook 'elpy-mode-hook 'flycheck-mode))))
-
+  (progn
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode)))
 
 ;; Projectile
 (use-package projectile
@@ -80,18 +79,23 @@
   :config (projectile-global-mode))
 
 ;; Smart parens
-;; (use-package smartparens
-;;   :ensure t
-;;   :diminish smartparens-mode
-;;   :config
-;;   (progn
-;;     (require 'smartparens-config)
-;;     (smartparens-global-mode t)))
+(use-package smartparens
+  :ensure t
+  :diminish smartparens-mode
+  :config
+  (progn
+    (require 'smartparens-config)
+    (smartparens-global-mode t)))
 
 (use-package company
   :ensure t  
   :bind ("<C-tab>" . company-complete)
-  :init (add-hook 'after-init-hook 'global-company-mode))
+  :init (add-hook 'after-init-hook 'global-company-mode)
+  :config (use-package company-tern
+            :ensure t
+            :config
+            (add-to-list 'company-backends 'company-tern)))
+
 
 (use-package expand-region
   :ensure t
@@ -138,6 +142,10 @@
 (use-package json-reformat
   :ensure t
   :defer t)
+
+(use-package js2-mode
+  :ensure t
+  :mode (("\\.js\\'" . js2-mode)))
 
 (use-package markdown-mode
   :ensure t
@@ -195,9 +203,9 @@
 ;;   :ensure t
 ;;   :defer t)
 
-(use-package pyenv-mode-auto
-  :ensure t
-  :defer t)
+;; (use-package pyenv-mode-auto
+;;   :ensure t
+;;   :defer t)
 
 (use-package rainbow-mode
   :ensure t
@@ -219,3 +227,44 @@
 (use-package xclip
   :ensure t
   :config (xclip-mode t))
+
+(use-package emmet-mode
+  :ensure t
+  :init
+  (progn
+    (add-hook 'sgml-mode-hook 'emmet-mode)
+    (add-hook 'css-mode-hook 'emmet-mode)))
+
+(use-package encourage-mode
+  :ensure t
+  :config (encourage-mode t))
+
+(use-package flycheck
+  :ensure t
+  :init (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
+  (progn
+    (setq-default
+     flycheck-disabled-checkers
+     (append flycheck-disabled-checkers
+             '(javascript-jshint
+               javascript-eslint
+               json-jsonlint
+               emacs-lisp
+               emacs-lisp-checkdoc)))))
+
+(use-package npm-mode
+  :ensure t
+  :init (add-hook 'js2-mode-hook 'npm-mode))
+
+(use-package wrap-region
+  :ensure t
+  :config (wrap-region-mode t))
+
+(use-package js2-refactor
+  :ensure t
+  :init (add-hook 'js2-mode-hook #'js2-refactor-mode))
+
+(use-package sws-mode
+  :ensure t
+  :mode (("\\.styl\\'" . sws-mode)))
